@@ -11,7 +11,7 @@ DEFAULT_PORT = 80
 
 
 if __name__ == "__main__":
-    parser = argparse.ArgumentParser(description="scanner app")
+    parser = argparse.ArgumentParser(description="feed app")
 
     parser.add_argument(
         "--host",
@@ -33,5 +33,8 @@ if __name__ == "__main__":
     info = f"Http server started on: {args.host}:{args.port}"
     log = logging.getLogger(app.LOGGER_NAME)
     web.run_app(
-        application, host=args.host, port=args.port, print=lambda a: log.info(info),
+        application,
+        host=args.host,
+        port=args.port,
+        print=lambda a: log.info(info),
     )

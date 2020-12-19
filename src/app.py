@@ -5,9 +5,9 @@ import sys
 from aiohttp import web
 
 import config
-import scanner
+import feed
 
-LOGGER_NAME = "scanner"
+LOGGER_NAME = "feed"
 STREAMING_FEED = "streaming_feed"
 
 
@@ -20,25 +20,25 @@ async def get_app() -> web.Application:
     )
 
     msg_queue = asyncio.Queue()
-    feed = scanner.StreamingFeed(log, msg_queue)
+    feed_ = feed.StreamingFeed(log, msg_queue)
 
     app = web.Application()
-    app.on_startup.append(lambda app: start_listening(app, feed))
+    app.on_startup.append(lambda app: start_listening(app, feed_))
     app.on_shutdown.append(stop_listening)
 
     router = app.router
     log.info(f"Base URI: {config.BaseConfig.BASE_URI}")
 
-    feed_handler = scanner.FeedHandler(feed, config.BaseConfig.SSE_PING_INTERVAL)
+    feed_handler = feed.FeedHandler(feed_, config.BaseConfig.SSE_PING_INTERVAL)
     router.add_get(f"{config.BaseConfig.BASE_URI}/feed", feed_handler.open_feed)
 
-    msg_handler = scanner.MessageHandler(msg_queue)
+    msg_handler = feed.MessageHandler(msg_queue)
     router.add_put(f"{config.BaseConfig.BASE_URI}/feed", msg_handler.put_message)
 
     return app
 
 
-async def start_listening(app: web.Application, feed: scanner.StreamingFeed):
+async def start_listening(app: web.Application, feed: feed.StreamingFeed):
     app[STREAMING_FEED] = asyncio.create_task(feed.start())
 
 
