@@ -29,11 +29,11 @@ async def get_app() -> web.Application:
     router = app.router
     log.info(f"Base URI: {config.BaseConfig.BASE_URI}")
 
-    scan_handler = scanner.ScanHandler(feed, config.BaseConfig.SSE_PING_INTERVAL)
-    router.add_get(f"{config.BaseConfig.BASE_URI}/scan", scan_handler.scan)
+    feed_handler = scanner.FeedHandler(feed, config.BaseConfig.SSE_PING_INTERVAL)
+    router.add_get(f"{config.BaseConfig.BASE_URI}/feed", feed_handler.open_feed)
 
-    dist_handler = scanner.DistancesHandler(msg_queue)
-    router.add_post(f"{config.BaseConfig.BASE_URI}/distances", dist_handler.update)
+    msg_handler = scanner.MessageHandler(msg_queue)
+    router.add_put(f"{config.BaseConfig.BASE_URI}/feed", msg_handler.put_message)
 
     return app
 

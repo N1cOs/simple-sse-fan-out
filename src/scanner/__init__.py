@@ -1,4 +1,4 @@
-from .api import ScanHandler, DistancesHandler
+from .api import FeedHandler, MessageHandler
 from .streaming import StreamingFeed
 
-__all__ = ["StreamingFeed", "ScanHandler", "DistancesHandler"]
+__all__ = ["StreamingFeed", "FeedHandler", "MessageHandler"]
