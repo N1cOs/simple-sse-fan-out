@@ -10,5 +10,5 @@ Opens SSE session.
 
 ### POST /api/v1/distances
 
-Sends body of a request to all open SSE session.
+Sends body of a request to all open SSE sessions.
 Request body is sent as is without any processing.
