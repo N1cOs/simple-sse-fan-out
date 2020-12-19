@@ -6,15 +6,15 @@ run:
 	docker run \
 		--rm \
 		--publish $(SERVER_PORT):$(SERVER_PORT) \
-		$(SCANNER_IMAGE) python main.py \
+		$(FEED_IMAGE) python main.py \
 			--host $(SERVER_HOST) \
 			--port $(SERVER_PORT)
 
-SCANNER = scanner
-SCANNER_IMAGE ?= $(SCANNER):1.0
-SCANNER_HOST_PATH = $(shell pwd)/src
+FEED = feed
+FEED_IMAGE ?= $(FEED):1.0
+FEED_HOST_PATH = $(shell pwd)/src
 
 .PHONY: build
 build:
 	docker build \
-		--tag $(SCANNER_IMAGE) $(SCANNER_HOST_PATH)
+		--tag $(FEED_IMAGE) $(FEED_HOST_PATH)
