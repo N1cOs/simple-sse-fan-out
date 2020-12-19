@@ -1,4 +1,4 @@
-## Scanner
+## Feed
 Simple HTTP service, which fan-out every incoming http message
 to all opened SSE sessions.
 
