@@ -4,11 +4,11 @@ to all opened SSE sessions.
 
 ## API
 
-### GET /api/v1/scan
+### GET /api/v1/feed
 
 Opens SSE session.
 
-### POST /api/v1/distances
+### PUT /api/v1/feed
 
-Sends body of a request to all open SSE sessions.
-Request body is sent as is without any processing.
+Sends body of a request to all opened SSE sessions.
+Body is sent as is without any processing.
